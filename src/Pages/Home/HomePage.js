@@ -7,6 +7,8 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import AddBooks from '../.././components/Books/AddBooks';
+
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -66,8 +68,9 @@ const HomePage = () => {
             }}
           >
             <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            <Breadcrumb.Item>Serge</Breadcrumb.Item>
           </Breadcrumb>
+          <AddBooks/>
           <div
             style={{
               padding: 24,
@@ -75,7 +78,7 @@ const HomePage = () => {
               background: colorBgContainer,
             }}
           >
-            Bill is a cat.
+            Here is Serge's books
           </div>
         </Content>
         <Footer

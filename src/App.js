@@ -1,7 +1,7 @@
 import React from 'react';
 import SigninPage from './Pages/SigninPage'
 import SignupPage from './Pages/SignupPage'
-import HomePage from './Pages/HomePage'
+import HomePage from './Pages/Home/HomePage'
 import Profile from './Pages/Profile'
 import { useSelector } from 'react-redux'
 import { Route, Routes, Navigate } from 'react-router-dom';

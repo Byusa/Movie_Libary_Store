@@ -116,7 +116,8 @@ const SignupPage = () => {
         token = data.idToken
         console.log(token)
         localStorage.setItem('token', token)
-        dispatch(authActions.login(token))
+        const expirationTime = new Date(new Date().getTime() + (+data.expiresIn * 1000))
+        dispatch(authActions.login(token, expirationTime.toISOString()))
         navigate('/')
     })
     .catch(err => {
