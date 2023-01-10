@@ -68,4 +68,22 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
 # Movie_Libary_Store
+
+## install node packages using:
+### `npm install`
+
+## start the project with:
+### `npm start`
+
+## important packages used:
+1. react router
+3. redux
+5. redux/kit
+6. Design: Antd
+7. Styled components 
+
+
+
+
