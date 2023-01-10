@@ -25,7 +25,7 @@ const NavBar = () => {
             <ul>
             {!isAuth && (
                 <li>
-                <Link to='/auth'>Login</Link>
+                <Link to='/auth'>Login/Register</Link>
                 </li>
             )}
             {isAuth && (

@@ -52,6 +52,7 @@ import { authActions } from '../store/auth'
 import { useDispatch } from 'react-redux'
 import { Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
@@ -83,8 +84,49 @@ const SigninPage = () => {
 
   const onFinish = (values) => {
     console.log(values);
-    dispatch(authActions.login())
-    navigate('/')
+    const enteredEmail = values.user.email
+    const enteredPassword = values.user.password
+    let token = null
+    console.log("enteredEmail", enteredEmail)
+    console.log("enteredPassword", enteredPassword)
+    console.log("Env", process.env.REACT_APP_FIREBASE_API_KEY)
+    const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`
+    fetch(url, 
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: enteredEmail,
+                password: enteredPassword,
+                returnSecureToken: true,
+            }), 
+    }).then(res => {
+        if (res.ok) {
+            return res.json();
+        }else{
+            res.json().then(data => {
+               let errorMessage = "Authentication failed";
+               if (data && data.error && data.error.message) {
+                     errorMessage = data.error.message;
+               }
+               alert(errorMessage);
+               throw new Error(errorMessage);
+            })
+        }
+    }).then(data => {
+        console.log(data)
+        token = data.idToken
+        console.log(token)
+        localStorage.setItem('token', token)
+        dispatch(authActions.login(token))
+        navigate('/')
+    })
+    .catch(err => {
+        console.log(err)
+        alert(err)
+    })
   };
   return (
     <Space direction="vertical" style={{width: '100%', height: '100vh', justifyContent: 'center', alignItems: 'center'}}>
@@ -99,7 +141,7 @@ const SigninPage = () => {
                         label="Email"
                         rules={[
                         {
-                            // required: true,
+                            required: true,
                             type: 'email',
                         },
                         ]}
@@ -111,7 +153,7 @@ const SigninPage = () => {
                         label="Password"
                         rules={[
                         {
-                            // required: true,
+                            required: true,
                         },
                         ]}
                     >
@@ -146,11 +188,13 @@ const SigninPage = () => {
                         }}
                     >
                         <Button type="primary" htmlType="submit">
-                        Submit
+                        SignIn
                         </Button>
                     </Form.Item>
-                    
                 </Form>
+                <Text>Don't have an account? 
+                    <Link to="/signup">Sign up</Link>
+                </Text>
             </Space>
         </Space>
   );
